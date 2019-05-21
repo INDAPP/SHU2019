@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Test</string>
+    <string name="text_view_message">Nuovo valore della TextView</string>
 </resources>
