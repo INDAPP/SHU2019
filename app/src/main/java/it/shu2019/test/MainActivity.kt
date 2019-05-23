@@ -4,7 +4,6 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()/*, View.OnClickListener*/ {
@@ -24,12 +23,12 @@ class MainActivity : AppCompatActivity()/*, View.OnClickListener*/ {
     }
 
     fun onButtonClick(view: View) {
-        val intent = Intent(this, SecondActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 
 //    override fun onClick(button: View) {
-//        val intent = Intent(this, SecondActivity::class.java)
+//        val intent = Intent(this, LoginActivity::class.java)
 //        startActivity(intent)
 //    }
 
