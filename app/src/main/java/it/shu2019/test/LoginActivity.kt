@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import it.shu2019.utils.preferences
@@ -16,10 +17,13 @@ const val USER_PASSWORD = "password123"
 
 class LoginActivity : AppCompatActivity() {
 //    private var preferences: SharedPreferences? = null
+    val TAG = "ACTIVITY_LIFECYCLE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+
+        Log.i(TAG, "onCreate")
 
         button.setOnClickListener(this::onLoginClick)
 
@@ -27,6 +31,31 @@ class LoginActivity : AppCompatActivity() {
 
         val email = preferences.getString(PREFS_EMAIL, null)
         editTextMail.setText(email)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i(TAG, "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i(TAG, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG, "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG, "onDestroy")
     }
 
     private fun onLoginClick(view: View) {
