@@ -7,12 +7,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_image.*
 
 private const val ARG_IMAGE_URL = "image_url"
 
 class ImageFragment : Fragment() {
     private var imageUrl: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: ImageFragmentListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +30,24 @@ class ImageFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_image, container, false)
     }
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Picasso.get().load(imageUrl).into(imageView)
+        imageView.setOnClickListener(this::onImageClick)
+    }
+
+    fun onImageClick(view: View) {
+        listener?.onImageFragmentClick(imageUrl)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
+        listener = context as? ImageFragmentListener
+//        if (context is ImageFragmentListener) {
+//            listener = context
+//        } else {
+//            throw RuntimeException(context.toString() + " must implement ImageFragmentListener")
+//        }
     }
 
     override fun onDetach() {
@@ -46,11 +55,21 @@ class ImageFragment : Fragment() {
         listener = null
     }
 
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
+    interface ImageFragmentListener {
+        fun onImageFragmentClick(imageUrl: String?)
     }
 
     companion object {
+
+//        @JvmStatic
+//        fun newInstance2(imageUrl: String): ImageFragment {
+//            val fragment = ImageFragment()
+//            val bundle = Bundle()
+//            bundle.putString(ARG_IMAGE_URL, imageUrl)
+//            fragment.arguments = bundle
+//            return fragment
+//        }
+
         @JvmStatic
         fun newInstance(imageUrl: String) =
             ImageFragment().apply {
@@ -58,5 +77,6 @@ class ImageFragment : Fragment() {
                     putString(ARG_IMAGE_URL, imageUrl)
                 }
             }
+
     }
 }
