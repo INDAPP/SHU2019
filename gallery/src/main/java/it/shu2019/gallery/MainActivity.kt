@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         button.setOnClickListener(this::openGallery)
+        buttonList.setOnClickListener(this::openList)
     }
 
     fun openGallery(view: View) {
@@ -28,6 +29,15 @@ class MainActivity : AppCompatActivity() {
             Intent(
                 this,
                 GalleryActivity::class.java
+            )
+        )
+    }
+
+    fun openList(view: View) {
+        startActivity(
+            Intent(
+                this,
+                ListActivity::class.java
             )
         )
     }
