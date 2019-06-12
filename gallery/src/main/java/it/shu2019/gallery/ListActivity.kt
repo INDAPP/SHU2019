@@ -16,14 +16,17 @@ import kotlinx.android.synthetic.main.viewholder_image.view.*
 
 class ListActivity : AppCompatActivity() {
     val imagesList = Images.getUrls(80, 512, 512)
+    val adapter = ImageListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        recyclerView.adapter = ImageListAdapter()
+        recyclerView.adapter = adapter
 //        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
+
+//        adapter.notifyDataSetChanged()
     }
 
     inner class ImageListAdapter : RecyclerView.Adapter<ImageViewHolder>() {
@@ -46,11 +49,11 @@ class ListActivity : AppCompatActivity() {
 
     class ImageViewHolder(itemView: View)
         : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView
+        private val imageView: ImageView = itemView.imageView
 
-        init {
-            this.imageView = itemView.imageView
-        }
+//        init {
+//            this.imageView = itemView.imageView
+//        }
 
         fun bind(urlString: String) {
             Picasso.get().load(urlString).into(imageView)
