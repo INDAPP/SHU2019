@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -42,6 +45,20 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_camera -> {
+                startActivity(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun openGallery(view: View) {
