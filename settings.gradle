@@ -1,1 +1,1 @@
-include ':app', ':utils', ':gallery'
+include ':app', ':utils', ':gallery', ':notepad'
