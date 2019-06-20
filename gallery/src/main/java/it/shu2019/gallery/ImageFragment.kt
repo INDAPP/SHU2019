@@ -3,7 +3,7 @@ package it.shu2019.gallery
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_image.*
 
 private const val ARG_IMAGE_URL = "image_url"
 
-class ImageFragment : Fragment() {
+class ImageFragment : androidx.fragment.app.Fragment() {
     private var imageUrl: String? = null
     private var listener: ImageFragmentListener? = null
 

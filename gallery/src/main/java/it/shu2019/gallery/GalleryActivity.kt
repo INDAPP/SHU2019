@@ -2,11 +2,11 @@ package it.shu2019.gallery
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import it.shu2019.utils.Images
 import it.shu2019.utils.toast
 import kotlinx.android.synthetic.main.activity_gallery.*
@@ -34,15 +34,15 @@ class GalleryActivity : AppCompatActivity(), ImageFragment.ImageFragmentListener
         finish()
     }
 
-    inner class ImageAdapter(fm: FragmentManager/*, val imagesList: List<String>*/)
-        : FragmentPagerAdapter(fm) {
+    inner class ImageAdapter(fm: androidx.fragment.app.FragmentManager/*, val imagesList: List<String>*/)
+        : androidx.fragment.app.FragmentPagerAdapter(fm) {
 //        val imagesList: List<String>
 //
 //        init {
 //            this.imagesList = imagesList
 //        }
 
-        override fun getItem(position: Int): Fragment {
+        override fun getItem(position: Int): androidx.fragment.app.Fragment {
             val imageUrl = imagesList[position]
 
             return ImageFragment.newInstance(imageUrl)
