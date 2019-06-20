@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
 //        this.notes = preferences.getStringSet(PREFS_NOTES, emptySet()).toMutableList()
 
+        PostitRepository.postitRepositoryChangeListener = { _ ->
+            adapter.notifyDataSetChanged()
+        }
         floatingActionButton.setOnClickListener(this::onNewNote)
         recyclerView.adapter = this.adapter
         recyclerView.layoutManager = StaggeredGridLayoutManager(

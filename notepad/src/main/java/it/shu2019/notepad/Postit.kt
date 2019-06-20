@@ -12,4 +12,6 @@ data class Postit(
     var color: Int,
     var creation: Long,
     var changed: Long
-)
+) {
+    constructor() : this("", "", 0xFFFFFF, 0, 0)
+}
