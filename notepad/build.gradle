@@ -37,9 +37,16 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation project(":utils")
     implementation 'androidx.cardview:cardview:1.0.0'
+
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-firestore:20.0.0'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
+
+    implementation("com.squareup.moshi:moshi:1.8.0")
+    implementation 'com.squareup.moshi:moshi-kotlin:1.6.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,10 +1,10 @@
 package it.shu2019.notepad
 
 import android.util.Log
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * This class is part of SHU2019 project.
@@ -48,10 +48,48 @@ object PostitRepository {
 
     private fun onPostitAddSuccess(ref: DocumentReference) {
         Log.d("PostitRepository", "Il postit è stato sincronizzato")
+        ref.get()
+            .addOnSuccessListener(this::onPostitGetSuccess)
+            .addOnFailureListener(this::onPostitGetFailure)
     }
 
     private fun onPostitAddFailure(error: Exception) {
         Log.e("PostitRepository", "Il postit non è stato sincronizzato")
     }
 
+    private fun onPostitGetSuccess(snapshot: DocumentSnapshot) {
+        Log.d("PostitRepository", "Il postit è stato recuperato")
+        val postit = snapshot.toObject(Postit::class.java) ?: return
+        val pushNotification = PushNotification(
+            notification = Notification(
+                "Una nuova nota è stata aggiunta",
+                postit.title
+            ),
+            condition = "'postit' in topics"
+        )
+        Client.firebaseHttpService.send(
+            pushNotification,
+            authorization = "key=$FirebaseServerKey"
+        ).enqueue(notificationCallback)
+    }
+
+    private fun onPostitGetFailure(error: Exception) {
+        Log.e("PostitRepository", "Il postit non è stato recuperato")
+    }
+
+    private val notificationCallback = object: Callback<Message> {
+
+        override fun onFailure(call: Call<Message>, t: Throwable) {
+            Log.e("PostitRepository", "La notifica push non è stata inviata")
+        }
+
+        override fun onResponse(call: Call<Message>, response: Response<Message>) {
+            Log.i("PostitRepository", "La notifica push è stata inviata")
+        }
+
+    }
+
 }
+
+//TODO: modificare prima di avviare
+const val FirebaseServerKey = "<inserire la stringa di autorizzazione>"

@@ -11,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import it.shu2019.utils.preferences
+import it.shu2019.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.viewholder_note.view.*
 import java.text.DateFormat
@@ -41,6 +43,10 @@ class MainActivity : AppCompatActivity() {
             2,
             StaggeredGridLayoutManager.VERTICAL
         )
+
+        FirebaseMessaging.getInstance().subscribeToTopic("postit")
+            .addOnSuccessListener(this::onTopicSubscriptionSuccess)
+            .addOnFailureListener(this::onTopicSubscriptionFailure)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -60,6 +66,14 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, NewNoteActivity::class.java)
 
         startActivityForResult(intent, REQUEST_NEW_NOTE)
+    }
+
+    private fun onTopicSubscriptionSuccess(void: Void?) {
+        toast("Topic Subscription Success")
+    }
+
+    private fun onTopicSubscriptionFailure(throwable: Throwable) {
+        toast("Topic Subscription Failure")
     }
 
 //    private fun onNewText(text: String?) {
